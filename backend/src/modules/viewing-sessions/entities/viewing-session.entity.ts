@@ -25,15 +25,15 @@ export class ViewingSession extends BaseEntity {
   @Column({ default: true })
   valid: boolean;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   invalidReason: string | null;
 
   @Column('decimal', { precision: 12, scale: 2, default: 0 })
   gainGenerated: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   ipAddress: string | null;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   deviceFingerprint: string | null;
 }

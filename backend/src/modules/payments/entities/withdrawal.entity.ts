@@ -41,9 +41,9 @@ export class Withdrawal extends BaseEntity {
   status: WithdrawalStatus;
 
   // Référence renvoyée par l'agrégateur de paiement (CinetPay, PawaPay, etc.)
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   providerReference: string | null;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   rejectionReason: string | null;
 }

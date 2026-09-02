@@ -13,7 +13,7 @@ export class Ad extends BaseEntity {
   @Column()
   title: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   advertiserName: string | null;
 
   @Column()

@@ -1,4 +1,7 @@
 export default () => ({
+  env: {
+    nodeEnv: process.env.NODE_ENV ?? 'development',
+  },
   port: parseInt(process.env.PORT ?? '3000', 10),
   database: {
     host: process.env.DB_HOST ?? 'localhost',
@@ -10,10 +13,17 @@ export default () => ({
   redis: {
     host: process.env.REDIS_HOST ?? 'localhost',
     port: parseInt(process.env.REDIS_PORT ?? '6379', 10),
+    password: process.env.REDIS_PASSWORD,
   },
   jwt: {
     secret: process.env.JWT_SECRET ?? 'change-me-in-production',
     expiresIn: process.env.JWT_EXPIRES_IN ?? '7d',
+  },
+  security: {
+    allowedOrigins: (process.env.ALLOWED_ORIGINS ?? '')
+      .split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean),
   },
   // Barème et règles métier par défaut (surchargeables en base par l'admin)
   business: {

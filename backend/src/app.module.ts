@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import configuration from './config/configuration';
+import { envValidationSchema } from './config/env.validation';
 import { AppController } from './app.controller';
 
 import { AuthModule } from './modules/auth/auth.module';
@@ -21,6 +22,10 @@ import { AdminModule } from './modules/admin/admin.module';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
+      validationSchema: envValidationSchema,
+      validationOptions: {
+        abortEarly: false,
+      },
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -35,7 +40,11 @@ import { AdminModule } from './modules/admin/admin.module';
         autoLoadEntities: true,
         // synchronize: true uniquement en développement. En production,
         // utiliser des migrations TypeORM.
-        synchronize: process.env.NODE_ENV !== 'production',
+        synchronize: config.get('env.nodeEnv') !== 'production',
+        ssl:
+          config.get('env.nodeEnv') === 'production'
+            ? { rejectUnauthorized: false }
+            : false,
       }),
     }),
     ThrottlerModule.forRoot({

@@ -16,7 +16,7 @@ export class User extends BaseEntity {
   phone: string;
 
   @Index({ unique: true })
-  @Column({ unique: true, nullable: true })
+  @Column({ type: 'varchar', unique: true, nullable: true })
   email: string | null;
 
   @Column({ select: false })
@@ -56,10 +56,10 @@ export class User extends BaseEntity {
   @Column({ default: false })
   isSuspended: boolean;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   lastLoginIp: string | null;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   deviceFingerprint: string | null;
 
   // Compteur de vidéos vues depuis le dernier palier de gain atteint
